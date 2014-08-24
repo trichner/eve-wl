@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" id="ng-app" ng-app="evewt">
+<head>
+    <meta charset="utf-8">
+    <title>My HTML File</title>
+    <script src="js/angular.js"></script>
+    <script src="controllers.js"></script>
+</head>
+<body onload='CCPEVE.requestTrust("http://k42.ch:8080/*")' ng-controller="wt-list">
+<h1>Hello {{me.characterName}}, welcome to Thomions' Waitlist Managing Tool!</h1>
+
+<p>Share your waitlist via:
+    <a href="http://k42.ch:8080/eve/index.html#?waitlistId={{waitlistVO.waitlistId}}">
+        http://k42.ch:8080/eve/index.html#?waitlistId={{waitlistVO.waitlistId}}
+    </a>
+</p>
+
+<div>
+    <input type="text" name="fitting" placeholder="paste ship fitting here" ng-model="shipDNA" required>
+    <button ng-click="postFit()">ready for fleet</button>
+</div>
+<ol>
+    <li ng-repeat="item in waitlistVO.waitlist">
+        <div>
+            <img title="{{item.characterName}}" src="https://image.eveonline.com/Character/{{item.characterId}}_64.jpg" ng-click="showCharInfo(item)"/>
+            <img title="{{item.shipName}}" src="https://image.eveonline.com/Render/{{item.shipType}}_64.png" ng-click="showFitting(item)"/>
+            <img title="send fleetinvite" src="img/add-user.png" width="64" ng-click="fleetInvite(item)"/>
+            <img title="remove from list" src="img/close.png" width="64" ng-click="removeItem(item)"/>
+
+            <p>{{item.characterName}}</p>
+        </div>
+    </li>
+</ol>
+<h3>How does it work?</h3>
+<h4>Create new Waitlist</h4>
+<p>
+    By opening this page in the Eve IGB you
+    already created a waitlist belonging to yourself, you
+    can start sharing it. Others can only find it via your link.
+</p>
+<h4>Share your waitlist</h4>
+<p>
+    By posting the link in chat you can get
+    other player to place themselves in your waitlist.
+    You can paste a fit by posting it in chat, right-click
+    the posted message, click 'copy' and paste the entire line
+    in the box hinting 'paste ship fitting here'. By clicking 'ready for fleet'
+    your fitting will be submitted and if everything was successful you should
+    see yourself in the waitlist.
+</p>
+<h4>Cool Features</h4>
+<p>
+    Have you tried clicking on the awesome player portrait?
+    Ever clicked on the ship render?
+</p>
+<h4>Are you a CSS wizard and want to help?</h4>
+<p>
+    The page needs some design love :)
+</p>
+
+</body>
+</html>
