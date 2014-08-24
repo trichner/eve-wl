@@ -1,6 +1,6 @@
 var evewt = angular.module('evewt', []);
 
-evewt.controller('wt-list',[ '$scope','$http','$location', function ($scope,$http,$location) {
+evewt.controller('wt-list',[ '$scope','$http','$location','$interval', function ($scope,$http,$location,$interval) {
   if(typeof CCPEVE == 'undefined'){
     alert('CCPEVE not defined, please use the EVE Online in-game-browser.');
     return;
@@ -57,7 +57,6 @@ evewt.controller('wt-list',[ '$scope','$http','$location', function ($scope,$htt
     //=== Fetch data
 
     $http.get('rest/v1/character/me').success(function(data){
-
         $scope.me = data;
         var waitlistId = $location.search()['waitlistId'];
 
@@ -76,14 +75,16 @@ evewt.controller('wt-list',[ '$scope','$http','$location', function ($scope,$htt
                 });
             });
         }
-
     }).
     error(function(data, status, headers, config) {
     //if it failed fetch our own list
-         alert("I'm sowwy, something wen't terribly wrong");
+         alert("I'm sowwy, something went terribly wrong");
     });
 
-
+    //update all 10s, veeery inefficient
+    $interval(function(){
+        $scope.refreshWL();
+    }, 10000);
     //
 
     $scope.postFit = function(){
